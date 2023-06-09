@@ -37,4 +37,11 @@ const livros = [
     res.json(livros)
   })
 
+  app.delete('/livros/:id', (req, res) => {
+    let { id } = req.params
+    let index = buscaLivro(id)
+    livros.splice(index, 1)
+    res.send(`Livro ${id} removido com sucesso`)
+  })
+
 export default app
