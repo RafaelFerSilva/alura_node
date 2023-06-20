@@ -18,12 +18,12 @@ class LivroController {
             .populate(`autor`, `nome`)
             .populate(`editora`, `nome`)
             .exec((err, livros) => {
-            if (err) {
-                res.status(400).send({ message: `${err.message} - id do livro não localizado` })
-            } else {
-                res.status(200).send(livros)
-            }
-        })
+                if (err) {
+                    res.status(400).send({ message: `${err.message} - id do livro não localizado` })
+                } else {
+                    res.status(200).send(livros)
+                }
+            })
     }
 
     static cadastrarLivro = (req, res) => {
@@ -58,6 +58,13 @@ class LivroController {
             } else {
                 res.status(500).send({ message: err.message })
             }
+        })
+    }
+
+    static listarLivrosPorEditora = (req, res) => {
+        const editora = req.query.editora
+        livros.find({ 'editora': editora }, {}, (err, livros) => {
+            res.status(200).send(livros)
         })
     }
 
